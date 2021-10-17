@@ -1,10 +1,20 @@
+// type cardTree<T> ={
+//     id:number;
+//      questionText:T;
+//      answers ? :T[];
+//      prevCard ? :Tree<T>;
+//      nextCards ? :Tree<T>[];
+//      indexSelectedAnswer ?:number;
+
+// }
+
 export default class Tree<T> {
     private id:number;
     private questionText:T;
-    private answers ?:T[];
-    private prevCard ? :Tree<T> ;
-    private nextCards ? : Tree<T>[];
-    private indexSelectedAnswer ?:number
+    private answers ? :T[];
+    private prevCard ? :Tree<T>;
+    private nextCards ? :Tree<T>[];
+    private indexSelectedAnswer ?:number;
     // we need to add a note variable so if in certain question 
     // they need to check somthing they will have an explanition to how
 
@@ -33,7 +43,10 @@ export default class Tree<T> {
         return this.questionText;
     }
     getAnwers = ()=>{
-        return this.answers;
+        if(this.answers !== undefined){
+            return this.answers;
+        }
+        return [];
     }
 
     getNextCard = ()=>{
@@ -53,6 +66,12 @@ export default class Tree<T> {
                 return this.nextCards[this.indexSelectedAnswer];
             }
         }
+    }
+    hasNext =()=>{
+        if(this.nextCards !== undefined){
+            return true;
+        }
+        return false;
     }
 
     // getBackTheNextSelectedCard = ()=>{

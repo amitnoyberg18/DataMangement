@@ -3,6 +3,7 @@ import Question from "./components/Question";
 import Answer from "./components/Answer";
 import CardQuestionnaire from "./classes/cardQuestion";
 import dataVal from './data/data';
+import FinalAnswerPage from './components/FinalAnswerPage';
 
 interface Istate{
   cardTree :CardQuestionnaire<string>
@@ -24,23 +25,24 @@ function App() {
   const backToPrevCard = ()=>{
     setCard((theCard:CardQuestionnaire<string>)=>theCard.getPrevCard())
   }
-  const forwardquestio = ()=>{
-    
-  }
 
 //another variable that contains an array of dictonaries that contains the question and the picked answer
 
   return (
     <div className="App">
-      <Question questionText={card.getQuestionText()}/>
-      {card.getAnwers()?.map((answer,index)=>{
-        console.log(index)
-        return <Answer answer={answer} index={index} key={index} setCard={setCard}/>
-      })}
-      <div className="buttons">
-        <button onClick={backToPrevCard}>&#x21B6;</button>
-        <button>&#x21B7;</button>
-      </div>
+              <div className="buttons">
+          <button onClick={backToPrevCard}>&#x21B6;</button>
+          {/* <button>&#x21B7;</button> */}
+        </div>
+      {card.hasNext() && 
+      <div className="card">
+        <Question questionText={card.getQuestionText()}/>
+        {card.getAnwers()?.map((answer,index)=>{
+          return <Answer answer={answer} index={index} key={index} setCard={setCard}/>
+        })}
+
+      </div>}
+      {!card.hasNext() && <FinalAnswerPage theWayToSolve={card.getQuestionText()} crmDetails={card.getAnwers()} setCard={setCard}/>}
     </div>
   );
 }

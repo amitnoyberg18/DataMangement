@@ -1,4 +1,7 @@
 import CardQuestionnaire from "../classes/cardQuestion"
+
+
+
 const dataVal = () =>{ 
     const data = [
         new CardQuestionnaire<string>(1,"היכן הבעיה",["אתר","לא"]), 
@@ -6,8 +9,8 @@ const dataVal = () =>{
         new CardQuestionnaire<string>(3,"האם התחבר בעבר",["לא","כן"]),
         new CardQuestionnaire<string>(4,"שילחו קישור לסיסמא ראשונית. הצליח?",["כן","לא"]),
         new CardQuestionnaire<string>(5,"הביאו סיסמה ראשונית. הצליח?",["כן","לא"]),
-        new CardQuestionnaire<string>(6,"final",["לבדוק ולעשות הסבה"]), 
-        new CardQuestionnaire<string>(7,"שאלונים",["לבדוק ולעשות הסבה"]), 
+        new CardQuestionnaire<string>(6,"להיכנס לטרנזקציה ........",["תחום","תת תחום","שאלה","תת שאלה","תבנית תשובה בCRM"]), 
+        new CardQuestionnaire<string>(7,"שאלונים",["לבדוק איזה שאלון ולעשות הסבה"]), 
 
     ]
     data[0].setNext([data[1],data[5]]);
