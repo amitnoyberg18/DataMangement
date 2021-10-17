@@ -6,6 +6,9 @@ interface IProps{
     answer: string;
     index:number;
     setCard:Function;
+    // function setCards()
+
+    // fu
 }
 const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
 
@@ -20,8 +23,8 @@ const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
     }
     console.log(index)
     return ( 
-        <div className="answer">
-            <p onClick={onSelectAnswer}>{answer}</p>
+        <div onClick={onSelectAnswer} className="answer">
+            <p>{answer}</p>
         </div>
      );
 }

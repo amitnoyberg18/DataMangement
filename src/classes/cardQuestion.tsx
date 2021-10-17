@@ -40,6 +40,12 @@ export default class Tree<T> {
         return this.nextCards;
     }
 
+    getPrevCard = ()=>{
+        if(this.prevCard !== undefined){
+            return this.prevCard;
+        }
+        return this;
+    }
 
     getNextSelectedCard = ()=>{
         if(this.nextCards){
@@ -48,6 +54,14 @@ export default class Tree<T> {
             }
         }
     }
+
+    // getBackTheNextSelectedCard = ()=>{
+    //     if(this.nextCards){
+    //         if(this.prevCard?.getNextSelectedCard !)
+    //     }
+    // }
+
+
 }
 //a test environment for tree node
 

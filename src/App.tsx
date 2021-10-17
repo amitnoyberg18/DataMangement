@@ -5,7 +5,7 @@ import CardQuestionnaire from "./classes/cardQuestion";
 import dataVal from './data/data';
 
 interface Istate{
-  cardTree:CardQuestionnaire<string>
+  cardTree :CardQuestionnaire<string>
 }
 function App() {
 
@@ -21,6 +21,12 @@ function App() {
     // console.log(newCard.getNextCard())
     // return newCard;
   })
+  const backToPrevCard = ()=>{
+    setCard((theCard:CardQuestionnaire<string>)=>theCard.getPrevCard())
+  }
+  const forwardquestio = ()=>{
+    
+  }
 
 //another variable that contains an array of dictonaries that contains the question and the picked answer
 
@@ -32,8 +38,8 @@ function App() {
         return <Answer answer={answer} index={index} key={index} setCard={setCard}/>
       })}
       <div className="buttons">
-        <button>back</button>
-        <button>forward</button>
+        <button onClick={backToPrevCard}>&#x21B6;</button>
+        <button>&#x21B7;</button>
       </div>
     </div>
   );
