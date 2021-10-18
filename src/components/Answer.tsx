@@ -1,5 +1,6 @@
-import React from "react";
-import CardQuestionnaire from "../classes/cardQuestion"
+import React, { useCallback, useEffect } from "react";
+// import CardQuestionnaire from "../classes/cardQuestion"
+import { CardTree } from "../models/cardTree";
 
 
 interface IProps{
@@ -13,18 +14,42 @@ interface IProps{
 const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
 
     const onSelectAnswer=()=>{
-        setCard((prevCard:CardQuestionnaire<string>)=>{
-            console.log(index);
-            prevCard.setIndexSelectedAnswer(index);
-            prevCard.getNextSelectedCard()?.setPrevCard(prevCard);
-            console.log(prevCard.getNextSelectedCard())
-            return prevCard.getNextSelectedCard();
+        setCard((prevCard:CardTree) =>{
+            prevCard.indexSelectedAnswer=index;
+            if(prevCard.nextCards!==undefined){
+                prevCard.nextCards[index].prevCard=prevCard;
+                return prevCard.nextCards[index];
+        
+            }
+
+                return undefined;
         })
     }
-    console.log(index)
+    const handleKeyPress = useCallback((e) => {
+            if(e.code === 'Digit'+(index+1)){
+                console.log(String(index+1))
+                onSelectAnswer()
+            }
+      }, [index]);
+    
+    
+    
+    useEffect(()=>{
+        document.addEventListener('keypress',handleKeyPress)
+        return () => {
+            document.removeEventListener('keypress', handleKeyPress)
+        }
+    },[handleKeyPress])
+        // window.addEventListener('keydown',(e)=>{
+        //     if(e.code === 'Digit'+(index+1)){
+        //         console.log(String(index+1))
+        //         onSelectAnswer()
+        //     }
+        // })
+    
     return ( 
         <div onClick={onSelectAnswer} className="answer">
-            <p>{answer}</p>
+            <p>({index+1}) {answer}</p>
         </div>
      );
 }

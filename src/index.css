@@ -8,6 +8,7 @@ body {
   font-size: large;
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   background-color:rgb(250, 248, 255);
+  direction: rtl;
 }
 
 .App{
@@ -30,16 +31,76 @@ body {
   margin:auto;
   margin-top:5%;
   background-color:#ffffff;
-  transition: background-color 1.5s;
+  transition: background-color 1s,color 1s;
   
 }
 .answer:hover{
   background-color: #5a4dff;
+  color: #ffffff;
   border: 2px solid #5a4dff;
 
 }
 .buttons{
   position:relative;
   float: left;
+  color: black;
   margin-bottom: 0px;
+}
+.btnPrev{
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  border-radius: 5px;
+  transition: background-color 1s,color 1s;
+
+}
+.btnPrev:hover{
+  background-color: #212230;
+  color: #ffffff;
+  border: 2px solid #212230;
+}
+.backTotart{
+  position: relative;
+  transition: background-color 0.7s,color 0.7s;
+  border: 2px solid #e0e2ee;
+  border-radius: 13px;
+  margin-top:45%;
+  background-color:#ffffff;
+  float: right;
+  
+}
+.backTotart:hover{
+  background-color: #212230;
+  color: #ffffff;
+  border: 2px solid #212230;
+}
+
+.finalDivRight{
+  position: relative;
+  background-color: white;
+  border:2px solid #e0e2ee;
+  border-radius: 13px;
+  float: right;
+  padding: 2%;
+  margin: auto;
+}
+
+
+.finalDivLeft{
+  position: relative;
+  background-color: white;
+  border:2px solid #e0e2ee;
+  border-radius: 13px;
+  float: left;
+  padding: 2%;
+  padding-bottom: 24%;
+  margin: auto; 
+}
+
+.backbutton{
+  position: relative;
+  /* border:2px solid black; */
+  padding: 40%;
+  margin: auto;
+  text-align: center;
 }

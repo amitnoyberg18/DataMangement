@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Question from "./components/Question";
 import Answer from "./components/Answer";
-import CardQuestionnaire from "./classes/cardQuestion";
-import dataVal from './data/data';
+// import CardQuestionnaire from "./classes/cardQuestion";
 import FinalAnswerPage from './components/FinalAnswerPage';
-
+import {dataCardTree} from './data/data';
+import {CardTree} from './models/cardTree'
 interface Istate{
-  cardTree :CardQuestionnaire<string>
+  cardTreeObj :CardTree |undefined
 }
 function App() {
 
-  const [card,setCard]=useState<Istate["cardTree"]>(()=>{
-    const newCard = dataVal()[0];
-    console.log(newCard)
+  const [card,setCard]=useState<Istate["cardTreeObj"]>(()=>{
+    const newCard = dataCardTree()[0];
     return newCard;
     // const newCard = new CardQuestionnaire<string>(1,"to kill or not to kill",["kill","dont kill"])
     // //the nexts cards we will get from the database
@@ -21,28 +20,68 @@ function App() {
     // newCard.setNext([nextCard,nextCard2]);
     // console.log(newCard.getNextCard())
     // return newCard;
-  })
+  });
   const backToPrevCard = ()=>{
-    setCard((theCard:CardQuestionnaire<string>)=>theCard.getPrevCard())
+    setCard((theCard : CardTree | undefined )=>{
+
+      if(theCard?.prevCard!==undefined){        
+        return theCard.prevCard            
+      }
+      return theCard
+
+      })
   }
+  const getAnswersArr =()=>{
+
+    if(card?.answers!==undefined)
+      return card.answers
+
+    return []
+  }
+  const getQuestion =()=>{
+
+    if(card?.answers!==undefined)
+      return card.questionText
+
+    return ""
+  }
+
+  useEffect(()=>{
+    const handleKeyPress = (e:any) => {
+        if(e.code !== undefined){
+            if(e.code==="Backquote"){
+              backToPrevCard()
+            }
+        }
+
+    }
+    document.addEventListener('keyup',(e)=>{
+        handleKeyPress(e);
+    })
+    return () => {
+        document.removeEventListener('keyup', (e)=>{
+            handleKeyPress(e);
+        })
+    }
+},[])
 
 //another variable that contains an array of dictonaries that contains the question and the picked answer
 
   return (
     <div className="App">
-              <div className="buttons">
-          <button onClick={backToPrevCard}>&#x21B6;</button>
-          {/* <button>&#x21B7;</button> */}
+      <div className="buttons">
+        <button className="btnPrev" onClick={backToPrevCard}>&#x21B6;</button>
+        {/* <button>&#x21B7;</button> */}
         </div>
-      {card.hasNext() && 
+      {card?.nextCards!==undefined && 
       <div className="card">
-        <Question questionText={card.getQuestionText()}/>
-        {card.getAnwers()?.map((answer,index)=>{
+        <Question questionText={card.questionText}/>
+        {getAnswersArr().map((answer,index)=>{
           return <Answer answer={answer} index={index} key={index} setCard={setCard}/>
         })}
 
       </div>}
-      {!card.hasNext() && <FinalAnswerPage theWayToSolve={card.getQuestionText()} crmDetails={card.getAnwers()} setCard={setCard}/>}
+      {card?.nextCards===undefined && <FinalAnswerPage theWayToSolve={getQuestion()} crmDetails={getAnswersArr()} setCard={setCard}/>}
     </div>
   );
 }
