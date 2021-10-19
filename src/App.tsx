@@ -48,9 +48,17 @@ function App() {
 
   useEffect(()=>{
     const handleKeyPress = (e:any) => {
-        if(e.code !== undefined){
-            if(e.code==="Backquote"){
-              backToPrevCard()
+        if(e.keyCode !== undefined){
+            if(e.keyCode===27){
+              const btnPrev=document.getElementById('btnPrevQuesiton')
+              btnPrev?.classList.add("backPrevByKey")
+              backToPrevCard();
+
+              setTimeout(() => {
+                btnPrev?.classList.remove("backPrevByKey")
+
+              }, 500);
+                           
             }
         }
 
@@ -70,7 +78,7 @@ function App() {
   return (
     <div className="App">
       <div className="buttons">
-        <button className="btnPrev" onClick={backToPrevCard}>&#x21B6;</button>
+        <button id="btnPrevQuesiton" className="btnPrev" onClick={backToPrevCard}>&#x21B6;</button>
         {/* <button>&#x21B7;</button> */}
         </div>
       {card?.nextCards!==undefined && 

@@ -82,6 +82,8 @@ body {
   border-radius: 13px;
   float: right;
   padding: 2%;
+  padding-left: 20%;
+  max-width: 28%;
   margin: auto;
 }
 
@@ -94,6 +96,7 @@ body {
   float: left;
   padding: 2%;
   padding-bottom: 24%;
+  max-width: 30%;
   margin: auto; 
 }
 
@@ -103,4 +106,17 @@ body {
   padding: 40%;
   margin: auto;
   text-align: center;
+}
+.backPrevByKey{
+
+  background-color: #5a4dff;
+  color: #ffffff;
+  border: 2px solid #5a4dff;
+}
+
+.answerSelectedByKey{
+  background-color: #5a4dff;
+  color: #ffffff;
+  border: 2px solid #5a4dff;
+
 }

@@ -18,6 +18,7 @@ const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
             prevCard.indexSelectedAnswer=index;
             if(prevCard.nextCards!==undefined){
                 prevCard.nextCards[index].prevCard=prevCard;
+         
                 return prevCard.nextCards[index];
         
             }
@@ -25,10 +26,19 @@ const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
                 return undefined;
         })
     }
-    const handleKeyPress = useCallback((e) => {
+    const  handleKeyPress =  useCallback((e) => {
             if(e.code === 'Digit'+(index+1)){
-                console.log(String(index+1))
-                onSelectAnswer()
+                console.log(String(index+1));
+                const answerElement=document.getElementById(index.toString())
+                answerElement?.classList.add('answerSelectedByKey');
+                setTimeout(() => {
+                    const answerElement=document.getElementById(index.toString())
+                    answerElement?.classList.remove('answerSelectedByKey');
+                    onSelectAnswer()
+
+                }, 1000);
+                
+             
             }
       }, [index]);
     
@@ -48,7 +58,7 @@ const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
         // })
     
     return ( 
-        <div onClick={onSelectAnswer} className="answer">
+        <div id={index.toString()} onClick={onSelectAnswer} className="answer">
             <p>({index+1}) {answer}</p>
         </div>
      );
