@@ -26,11 +26,13 @@ const Answer: React.FC<IProps> = ({answer,setCard,index}) => {
                 return undefined;
         })
     }
+
     const  handleKeyPress =  useCallback((e) => {
             if(e.code === 'Digit'+(index+1)){
                 console.log(String(index+1));
                 const answerElement=document.getElementById(index.toString())
                 answerElement?.classList.add('answerSelectedByKey');
+               const div= document.getElementsByTagName("div")
                 setTimeout(() => {
                     const answerElement=document.getElementById(index.toString())
                     answerElement?.classList.remove('answerSelectedByKey');

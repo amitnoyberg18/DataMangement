@@ -63,16 +63,16 @@ body {
   position: relative;
   transition: background-color 0.7s,color 0.7s;
   border: 2px solid #e0e2ee;
-  border-radius: 13px;
+  border-radius: 5px;
   margin-top:45%;
   background-color:#ffffff;
   float: right;
   
 }
 .backTotart:hover{
-  background-color: #212230;
+  background-color: #5a4dff;
   color: #ffffff;
-  border: 2px solid #212230;
+  border: 2px solid #5a4dff;
 }
 
 .finalDivRight{
