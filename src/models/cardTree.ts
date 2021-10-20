@@ -6,5 +6,6 @@ export type CardTree ={
     prevCard ? :CardTree;
     nextCards ? :CardTree[];
     indexSelectedAnswer ?:number;
+    clicked:number;
 }
 
