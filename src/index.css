@@ -118,3 +118,22 @@ body {
   border: 2px solid #5a4dff;
 
 }
+.FirstPage{
+  padding: 10%;
+}
+.btnStart{
+  position: relative;
+  padding: 3%;
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+  border-radius: 5px;
+  margin-top: 6%;
+  transition: background-color 1s,color 1s;
+
+}
+.btnStart:hover{
+  background-color: #5a4dff;
+  color: #ffffff;
+  border: 2px solid #5a4dff;
+}

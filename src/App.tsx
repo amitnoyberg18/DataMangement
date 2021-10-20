@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Question from "./components/Question";
 import Answer from "./components/Answer";
+import FirstPage from './components/FirstPage';
 // import CardQuestionnaire from "./classes/cardQuestion";
 import FinalAnswerPage from './components/FinalAnswerPage';
 import {dataCardTree} from './data/data';
@@ -16,6 +17,7 @@ interface Istate{
 }
 function App() {
 
+  const [isFirstPageActive,setIsFirstPageActive] = useState(true);
   const [card,setCard]=useState<Istate["cardTreeObj"]>(()=>{
     const newCard = dataCardTree()[0];
     return newCard;
@@ -31,9 +33,6 @@ function App() {
 
 
 
-
-
-
   const backToPrevCard = ()=>{
     setTimeout(() => {
       setCard((theCard : CardTree | undefined )=>{
@@ -46,6 +45,7 @@ function App() {
           })     
           return theCard.prevCard            
         }
+        setIsFirstPageActive(true);
         return theCard
   
         })
@@ -62,10 +62,6 @@ function App() {
       return newHistory;
     })
   }
-
-
-
-
 
 
   const getAnswersArr =()=>{
@@ -115,30 +111,33 @@ function App() {
 
   return (
     <div className="App">
-      <div className="history">
-        {history.filter( (ele, ind) => ind === history.findIndex( elem => elem.id === ele.id && elem.id === ele.id)).map((item,index)=>{
-          if(item.answers !== undefined && item.indexSelectedAnswer !== undefined){
-            return <div className="historyItem" key={index}>
-              <p style={{textDecoration:"underline",cursor:"pointer"}} onClick={()=>handleBackInHistory(item,index)}>{item.questionText}</p>
-              <p>{item.answers[item.indexSelectedAnswer]}</p>
-            </div>
-          }
-          return <> </>
-        })}
-      </div>
-      <div className="buttons">
-        <button id="btnPrevQuesiton" className="btnPrev" onClick={backToPrevCard}>&#x21B6;</button>
-        {/* <button>&#x21B7;</button> */}
+      {isFirstPageActive && <FirstPage setIsFirstPageActive={setIsFirstPageActive} />}
+      {!isFirstPageActive && <div className="TheApp">
+        <div className="history">
+          {history.filter( (ele, ind) => ind === history.findIndex( elem => elem.id === ele.id && elem.id === ele.id)).map((item,index)=>{
+            if(item.answers !== undefined && item.indexSelectedAnswer !== undefined){
+              return <div className="historyItem" key={index}>
+                <p style={{textDecoration:"underline",cursor:"pointer"}} onClick={()=>handleBackInHistory(item,index)}>{item.questionText}</p>
+                <p>{item.answers[item.indexSelectedAnswer]}</p>
+              </div>
+            }
+            return <> </>
+          })}
         </div>
-      {card?.nextCards!==undefined && 
-      <div className="card">
-        <Question questionText={card.questionText}/>
-        {getAnswersArr().map((answer,index)=>{
-          return <Answer setHistory={setHistory} answer={answer} index={index} key={index} setCard={setCard}/>
-        })}
+        <div className="buttons">
+          <button id="btnPrevQuesiton" className="btnPrev" onClick={backToPrevCard}>&#x21B6;</button>
+          {/* <button>&#x21B7;</button> */}
+          </div>
+        {card?.nextCards!==undefined && 
+        <div className="card">
+          <Question questionText={card.questionText}/>
+          {getAnswersArr().map((answer,index)=>{
+            return <Answer setHistory={setHistory} answer={answer} index={index} key={index} setCard={setCard}/>
+          })}
 
+        </div>}
+        {card?.nextCards===undefined && <FinalAnswerPage setHistory={setHistory} theWayToSolve={getQuestion()} crmDetails={getAnswersArr()} setCard={setCard}/>}
       </div>}
-      {card?.nextCards===undefined && <FinalAnswerPage theWayToSolve={getQuestion()} crmDetails={getAnswersArr()} setCard={setCard}/>}
     </div>
   );
 }

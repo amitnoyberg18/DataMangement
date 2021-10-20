@@ -7,8 +7,9 @@ interface IProps{
     theWayToSolve: string;
     crmDetails:string[];
     setCard: Function;
+    setHistory:Function;
 }
-const FinalAnswerPage: React.FC<IProps> = ({theWayToSolve,crmDetails,setCard}) => {
+const FinalAnswerPage: React.FC<IProps> = ({theWayToSolve,crmDetails,setCard,setHistory}) => {
 
 
     return ( 
@@ -27,7 +28,11 @@ const FinalAnswerPage: React.FC<IProps> = ({theWayToSolve,crmDetails,setCard}) =
                     <h2> איך לטפל בקו ראשון {theWayToSolve}</h2>
                 </div>
                 <div className="backbutton">
-                    <button className="backTotart" onClick={()=>setCard(()=>dataCardTree()[0])}>חזרה להתחלה</button>
+                    <button className="backTotart" onClick={()=>
+                        {
+                            setCard(()=>dataCardTree()[0]);
+                            setHistory([]);
+                        }}>חזרה להתחלה</button>
                 </div>
 
         </div>
